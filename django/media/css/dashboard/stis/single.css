@@ -1,0 +1,19 @@
+.dashboard-stis-single-section-header {
+	color: red;
+}
+
+.dashboard-stis-single-table td{
+	border: 1px solid black;
+	padding: 2px;
+}
+
+.dashboard-stis-single-modify,
+.dashboard-stis-single-delete {
+	text-decoration: none;
+	color: blue;
+	cursor: pointer;
+}
+
+.dashboard-stis-single-row-header {
+	text-decoration: underline;
+}

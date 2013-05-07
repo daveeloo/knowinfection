@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+
+{% load jsonify %}
+
+{% block cssincludes %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/media/css/dashboard/configuration.css">
+{% endblock %}
+
+{% block jsincludes %}
+{{ block.super }}
+<script src="/media/js/dashboard/configuration.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+{% block jsdocready %}
+{{ block.super }}
+$(document).attr('uri_modifyconfigkv', '{% url modify-configuration-kv %}');
+$(document).attr('uri_deleteconfigkv', '{% url delete-configuration-kv %}');
+
+renderConfiguration({{ configuration|jsonify }});
+{% endblock %}
+
+{% block title %}{{ block.super }} Configuration {% endblock %}
+
+{% block content %}
+<table id="configtable"></table>
+
+{% endblock %}

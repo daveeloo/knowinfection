@@ -1,0 +1,13 @@
+{% extends "dashboard/base.html" %}
+
+{% block title %}{{ block.super }} Modify STIs {% endblock %}
+
+{% block content %}
+All STIs
+<ul>
+  {% for sti in stis %}
+  <li><a href="{% url modify-single-sti sti.pk %}">{{ sti.name }}</a>
+  {% endfor %}
+</ul>
+<a href="{% url new-sti %}">Create a new STI</a>
+{% endblock %}

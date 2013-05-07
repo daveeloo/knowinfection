@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block cssincludes %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/media/css/inform.css">
+{% endblock %}
+
+{% block title %}{{ block.super }} Inform Your Partner {% endblock %}
+
+{% block content %}
+
+
+{% block inform-header %}
+<div id="inform-header">
+  <h3 id="start" 
+  {% if selected == "start" %} class="inform-selected"{% endif %}>
+  Spread Knowledge</h3>
+  <span id='arrow{% if selected == "start" %}selected{% endif %}'></span>
+  
+
+  <h3 id="select_stis" 
+  {% if selected == "select_stis" %} class="inform-selected"{% endif %}>
+  Choose Message
+  </h3>
+  <span id='arrow{% if selected == "select_stis" %}selected{% endif %}'></span>
+
+  <h3 id="preview" 
+  {% if selected == "preview" %} class="inform-selected"{% endif %}>
+  Preview
+  </h3>
+  <span id='arrow{% if selected == "preview" %}selected{% endif %}'></span>
+  
+  <h3 id="email_send" 
+  {% if selected == "email_send" %} class="inform-selected"{% endif %}>
+  Send
+  </h3>
+<hr class='clearfix'/>
+</div>
+{% endblock %}
+
+{% block inform-content %}
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ block.super }} Homepage {% endblock %}
+{% block content %}
+<div id="homepage-main">
+  <p>There are many ways to inform your partners that they may have been
+  exposed to a sexually transmitted infection.</p>
+
+  <p>One of these ways is to <a class="homepage-link" href="{% url inform-partners %}">send them an
+  anonymous email</a> through this site.</p>
+  
+  <p>Share information about where to get tested, what symptoms to look for,
+  and how to protect others.</p>
+
+  <p>For tips on informing your partner yourself, visit <a
+  class="homepage-link" target="_blank"
+  href="http://www.sfcityclinic.org/stdbasics/partners.asp">www.sfcityclinic.org/stdbasics/partners.asp</a></p>
+
+  <p>Be part of the solution.</p>
+  <p>KnowInfection.org</p>
+</div>
+{% endblock %}

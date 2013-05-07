@@ -1,0 +1,162 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #675c3d;
+	background-image: url('../img/sitebg.png');
+	background-position: top right;
+	background-repeat: repeat-x;
+
+	padding-top:40px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.base-link {
+}
+
+#wholepage {
+	margin: 0 auto;
+	width: 900px;
+}
+
+a#logo {
+	display: block;
+	width: 229px;
+	height: 90px;
+	background-image: url('../img/logo.png');
+	background-position: top left;
+	background-repeat: no-repeat;
+
+	float: left;
+	position: relative;
+	top: 36px;
+	z-index: 5;
+}
+
+.linkbar {
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+#topbar {
+	width:665px;
+	float:right;
+}
+
+#topbar a {
+	display:block;
+	float:left;
+	margin: 40px 35px 2px 10px;
+
+	font-family: 'Gill Sans', 'Gill Sans MT', 'Gill Sans Std', 'Calibri', 'Trebuchet', sans-serif;
+	font-weight: bold;
+	font-size:14px;
+	color: #ff9700;
+	text-align:right;
+	text-transform: uppercase;
+
+	padding:0 3px 0 0;
+	border-right:6px solid #776a43;
+}
+
+#topbar a b {
+	font-size:22px;
+}
+
+#topbar a:hover {
+	color: #ffb400;
+}
+
+a.top-selected {
+	color: #3dbaf8;
+	border-color: #276685;
+}
+
+#bottombar {
+	text-align:center;
+}
+
+#bottombar a {
+	font-family: Verdana, sans-serif;
+	font-size: 11px;
+	color: #3dbaf8;
+	margin:0px 30px;
+}
+
+#bottombar a:hover {
+	text-decoration: underline;
+}
+
+#content {
+	position: relative;
+	clear:both;
+	margin: 0 auto;
+	padding: 10px;
+	padding-left: 228px;
+	min-height:350px;
+
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius:10px;
+	border: 2px solid #199bd7;
+
+	background-color: #f8efe1;
+	background-image: url('../img/watermark.png');
+	background-position: bottom right;
+	background-repeat: no-repeat;
+
+	font-family: Verdana, sans-serif;
+	font-size: 13px;
+	color: #29261b;
+	text-align:left;
+}
+
+#content a {
+	color: #178ec9
+}
+
+#content a:hover {
+	color: #3dbaf8;
+}
+
+#sidebar {
+	display: block;
+	z-index:3;
+	position:absolute;
+	top:10px;
+	left:10px;
+	
+	width: 200px;
+	margin: 35px 0 0 0;
+	padding: 8px 2px; 
+
+	border-style: double none;
+	border-color: #776a43;
+}
+
+#sidebar a {
+	display: block;
+	margin-bottom:7px;
+
+	font-family: 'Gill Sans', 'Gill Sans MT', 'Gill Sans Std', 'Calibri', 'Trebuchet', sans-serif;
+	font-weight: bold;
+	font-size:13px;
+	text-transform: uppercase;
+	color: #776a43;
+}
+
+#sidebar a:hover {
+	color: #ff9700;
+}
+
+hr.clearfix {
+	clear:both;
+	visibility:hidden;
+	height:1px;
+	width:100%;
+}

@@ -1,0 +1,18 @@
+#configtable {
+}
+
+.config-key {
+	color: red;
+}
+
+.config-value {
+	color: blue;
+}
+
+.config-add,
+.config-update,
+.config-delete {
+	text-decoration: none;
+	color: blue;
+	cursor: pointer;
+}

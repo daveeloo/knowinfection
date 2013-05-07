@@ -1,0 +1,11 @@
+{% extends "inform/base.html" %}
+{% block inform-content %}
+SELECT me some STIs
+
+<form method="POST" action="">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Preview">
+</form>
+
+{% endblock %}

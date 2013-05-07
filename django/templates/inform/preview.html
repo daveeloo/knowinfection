@@ -1,0 +1,25 @@
+{% extends "inform/base.html" %}
+
+{% load jsonify %}
+
+{% block jsincludes %}
+{{ block.super }}
+<script src="/media/js/inform/preview.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+{% block jsdocready %}
+{{ block.super }}
+$(document).attr('uri_informsend', '{% url inform-send %}');
+$(document).attr('uri_informselect', '{% url inform-select %}');
+
+renderEmail({{ email|jsonify }});
+{% endblock %}
+
+{% block title %}{{ block.super }} Configuration {% endblock %}
+
+{% block inform-content %}
+<div id="emailPreview"></div>
+
+<a href="{% url inform-send %}">OK, looks good</a><br>
+<a href="{% url inform-select %}">Just kidding, wrong STIs</a><br>
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+{% block cssincludes %}
+<link rel="stylesheet" type="text/css" href="/media/css/base.css" />
+{% endblock %}
+
+{% block jsincludes %}
+<script src="/media/js/lib/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/media/js/lib/json2.js" type="text/javascript" charset="utf-8"></script>
+<script src="/media/js/base.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+{% block jsdocready %} $(document).attr('csrfmiddlewaretoken', '{{ csrf_token }}'); {% endblock %}
+});
+</script>
+
+<title>{% block title %}K(no)wInfection: {% endblock %}</title>
+</head>
+<body>
+
+<div id="wholepage">
+  {% block logo %}
+  <a id='logo' class="base-link" href="{% url homepage %}"></a>
+  {% endblock %}
+
+<div id="topbar" class="linkbar">
+  {% block topbar %}
+  <a class="base-link" href="{% url inform-partners %}"><b>inform</b><br/> your partners</a>
+  <a class="base-link" href="{% url info-testing %}">get <br/><b>tested</b></a>
+  <a class="base-link" href="{% url info-sexual-health %}">sexual health <br/><b>info</b></a>
+  {% endblock %}
+</div>
+
+<div id="content">
+  <div id='sidebar'>
+  {% block sidebar %}
+	<!-- delete these dummy links once the sidebar block is built -->
+  <a href='#'>Know Your Risk</a>  <a href='#'>Decrease Your Risk</a>  <a href='#'>Eliminate Your Risk</a>
+  <a href='#'>Get Tested and Treated</a>  <a href='#'>Inform Your Partners</a>
+  {% endblock %}
+  </div>
+  {% block content %} {% endblock %}
+</div>
+  
+<div id="bottombar" class="linkbar">
+  {% block bottombar %}
+  <a class="base-link" href="{% url about %}">about us</a>
+  <a class="base-link" href="{% url contact %}">contact us</a>
+  <a class="base-link" href="{% url get-involved %}">get involved</a>
+  <a class="base-link" href="{% url spread-the-word %}">spread the word</a>
+  {% endblock %}
+</div>
+
+</div>
+</body>
+</html>

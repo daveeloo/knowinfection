@@ -1,0 +1,12 @@
+{% extends "inform/base.html" %}
+{% block inform-content %}
+Email partner form!  Enter the value you see in the captcha
+<br>
+<img src="{{ captchaUrl }}">
+<form method="POST" action="">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="hidden" name="captchaKey" value="{{captchaKey}}" />
+<input type="submit">
+</form>
+{% endblock %}

@@ -1,0 +1,68 @@
+#inform-header {
+	margin: 0 0 0 100px;
+	text-align: center;
+	overflow: hidden;
+}
+
+#inform-header h3 {
+	display:inline;
+	height:30px;
+	float:left;
+	max-width: 89px;
+	margin-left:-16px;
+
+	font-family: 'Gill Sans', 'Gill Sans MT', 'Gill Sans Std', 'Calibri', 'Trebuchet', sans-serif;
+	font-size:12px;
+	text-transform: uppercase;
+	color: #f8efe1;
+
+	background-color: #ff9700;
+
+	border-radius: 15px 0px 0px 15px;
+	-moz-border-radius: 15px 0px 0px 15px;
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+
+	padding:0 3px 0 12px;
+}
+
+#inform-header h3#start {
+	margin-left:0;
+}
+
+#inform-header h3#email_send {
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	padding: 0 12px;
+}
+
+#inform-header #email_send, #inform-header #preview {
+	line-height:30px;
+}
+
+#inform-header .inform-selected {
+	background-color: #3dbaf8;
+}
+
+#emailPreview {
+	font: 0.8em Courier;
+}
+
+#inform-header #arrow, #inform-header #arrowselected {
+	border-color: transparent transparent transparent #ff9700;
+	border-style: solid;
+	border-width: 15px 0 15px 15px;
+	float: left;
+	height: 0;
+	margin: 0 10px;
+	width: 0;
+
+	position: relative;
+	right: 10px;
+	top: 12px;
+}
+
+#inform-header #arrowselected {
+	border-color: transparent transparent transparent #3dbaf8; 
+}

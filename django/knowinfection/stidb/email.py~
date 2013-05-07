@@ -1,0 +1,140 @@
+from django.core import urlresolvers
+from django.core.mail import EmailMultiAlternatives
+
+from knowinfection.stidb.models import STI, Configuration, EmailBlocklist
+from knowinfection.stidb.utilities import get_config
+
+def join_nouns(nouns, joiner):
+    """ Joins up nouns with the combiner.  e.g. noun1 and noun1 || noun1,
+    noun2, and noun3 """
+    if len(nouns) == 1:
+        return nouns[0]
+    if len(nouns) == 2:
+        return (' %s ' % joiner).join(nouns)
+    return '%s, %s %s' % (', '.join(nouns[:-1]), joiner, nouns[-1:])
+
+URL_BASE = 'http://www.knowinfection.org'
+def make_url(url_name, args=None, kwargs=None):
+    if args is None:
+        args = []
+    if kwargs is None:
+        kwargs = {}
+
+    path = urlresolvers.reverse(url_name, args=args, kwargs=kwargs)
+    return URL_BASE + path
+
+def get_template():
+    return \
+"""
+<p>Someone you have had sexual contact with has been diagnosed with
+%(joined_and)s and thinks you might also have %(joined_or)s.  They have
+sent you this anonymous email through a public health website called
+knowinfection.org. %(sti_sentences)s If you think that there's a chance you
+might have %(joined_or)s, you should get tested.  To find a STI testing
+center in your area, visit the <a
+href="http://www.hivtest.org/std_testing.cfm">National HIV and STD Testing
+Resources</a> page.  Many STI testing locations are free. </p>
+
+<p>If you think you are not at risk, please take twenty seconds to let us
+know that our site is not being used as intended.  Please take the
+feedback survey at <a
+href="http://www.knowinfection.org/report">www.knowinfection.org/report</a></p> 
+%(sti_paragraphs)s
+<p>%(more_information_sentences)s If you do test positive for %(joined_or)s,
+you <a href="http://www.knowinfection.org/inform">should let your past and
+present partners know</a> so they can get tested, too.</p>
+<p>This has been a service provided by K(now) Infection. K(no)w Infection is
+a non-profit organization that provides health departments, testing
+clinics, and the general public with free anonymous STI partner
+notification services.  We cannot guarantee that the sender of this
+message is a past or present sexual partner, or that the sender has
+probable reason to think you may have been exposed. Either way, if you
+think that you may be at risk of an STI, you should get tested.For
+information on the Centers for Disease Control and Prevention's sti
+recommendations, visit <a href="http://www.hivtest.org/faq.cfm">STD
+Testing FAQ</a> or take a quiz at <a href="http://www.stdwizard.org">STD
+Wizard</a> to find out what you should get tested for.</p>
+<p>Was this message helpful?  Could it be better?  We'd love to hear your
+ideas so that we can improve our services.  To help us by giving us
+feedback, click <a href="http://www.knowinfection.org/feedback">here</a>.</p>
+<p>If you feel you have received this message in error, please click <a
+href="http://www.knowinfection.org/report">here</a> to let us know.  If
+you would like to prevent K(no)w Infection from sending you emails in the
+future, click <a
+href="http://www.knowinfection.org/notificationmanager">here</a>.</p>
+<p>K(no)w Infection.<br>Be part of the solution.</p>
+""", {'opt_out_url': make_url('report-abuse'),
+      'feedback_url': make_url('submit-feedback'),
+      'inform_url': make_url('inform-partners'),
+      'report_url': make_url('report-abuse')}
+
+def generate_email(stis):
+    nouns = []
+    sentences = []
+    paragraphs = []
+    information_sentences = []
+    for sti in stis:
+        nouns.append(sti.name)
+        sentences.append(sti.emailSentence)
+        paragraphs.append('<p>%s</p>' % sti.emailParagraph)
+        info_page = make_url('view-single-sti', kwargs={'sti_id':sti.id})
+        information_sentences.append('For more information on %s, visit <a href="%s">%s</a>.' % (sti.name, info_page, info_page))
+
+    template, template_dict = get_template()
+    template_dict.update({'joined_and': join_nouns(nouns, 'and'),
+                      'joined_or': join_nouns(nouns, 'or'),
+                      'sti_sentences': ' '.join(sentences),
+                      'sti_paragraphs': ''.join(paragraphs),
+                      'more_information_sentences': ' '.join(information_sentences)})
+
+    body = template % template_dict
+
+    return {"subject": "Jess, what's the subject line?",
+            "from": '"K(no)wInfection.org" <inform@knowinfection.org>',
+            "body": body}
+
+def convert_email_address(emailAddress):
+    # TODO return a hexdigest of a SHA-1 hash
+    return emailAddress
+
+def add_address_to_blocklist(emailAddress):
+    # TODO create a new row and save it to the database
+    pass
+
+def remove_address_from_blocklist(emailAddress):
+    # TODO see if we can find the object from the DB.  if so, remove it
+    try:
+        instance = EmailBlocklist.objects.get(emailHashed=convert_email_address(emailAddress))
+    except EmailBlocklist.DoesNotExist:
+        return
+
+    instance.destroy()
+
+def address_in_blocklist(emailAddress):
+    try:
+        EmailBlocklist.objects.get(emailHashed=convert_email_address(emailAddress))
+    except EmailBlocklist.DoesNotExist:
+        return False
+
+    return True
+    
+def strip_html(emailHTML):
+    """ Strips the HTML from the email body.  Adds newlines for paragraphs
+    and renders links. """
+    # TODO
+    return emailHTML
+
+def send_knowinfection_email(emailAddress, stis):
+    if address_in_blocklist(emailAddress):
+        # fail silently
+        return
+
+    email = generate_email(stis)
+    htmlBody = email['body']
+    plainTextBody = strip_html(htmlBody)
+
+    # TODO: log some sweet anonymous stats (GeoIP, etc)
+    msg = EmailMultiAlternatives(email['subject'], plainTextBody, email['from'], [emailAddress])
+    msg.attach_alternative(htmlBody, "text/html")
+    msg.send(fail_silently=False)
+

@@ -1,0 +1,38 @@
+{% extends "dashboard/base.html" %}
+
+{% block cssincludes %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/media/css/dashboard/stis/single.css">
+{% endblock %}
+
+{% block jsincludes %}
+{{ block.super }}
+<script src="/media/js/dashboard/stis/single.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+{% load jsonify %}
+
+{% block jsdocready %}
+{{ block.super }}
+$(document).attr('uri_modifystiattrs', '{% url modify-single-sti-attributes %}');
+$(document).attr('uri_deletestiattrs', '{% url delete-single-sti-attributes %}');
+
+renderSti({{ sti_dict|jsonify }});
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url modify-stis %}">Back to all STIs (TODO: remove this link)</a>
+<br>
+
+<div id="sti_info">
+  <div id="sti_basic"></div>
+  <div id="sti_description"></div>
+  <div id="sti_symptom"></div>
+  <div id="sti_transmission"></div>
+  <div id="sti_testing"></div>
+</div>
+
+</form>
+
+{% endblock %}

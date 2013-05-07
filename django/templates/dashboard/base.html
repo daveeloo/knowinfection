@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block cssincludes %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/media/css/dashboard/homepage.css">
+{% endblock %}
+
+{% block title %}K(no)wInfection Dashboard: {% endblock %}
+
+{% block logo %}
+<a id='logo' class="base-link" href="{% url dashboard %}"></a>
+{% endblock %}
+
+{% block topbar %}
+<a class="base-link" href="{% url modify-stis %}">modify stis</a>
+<a class="base-link" href="{% url view-configuration %}">configuration</a>
+<a class="base-link" href="{% url stats%}">statistics</a>
+{% endblock %}
+
+{% comment %}
+Sub-pages still need to fill in the 'content' block
+{% endcomment %}
+
+{% block bottombar %}
+<a class="base-link" href="{% url homepage %}" target="_blank">public homepage</a>
+{% if user.is_authenticated %}
+<a class="base-link" href="{% url logout %}">logout</a>
+{% endif %}
+
+{% endblock %}
